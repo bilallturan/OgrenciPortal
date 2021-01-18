@@ -1,0 +1,319 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="example-button-container">
+            <a mat-fab color="warn" href="/" aria-label="Example icon button with a home icon">
+                <mat-icon>home</mat-icon>
+            </a>
+        </div>
+        <div class="ml-3">
+            <a mat-fab color="primary" href="/kayitlar" aria-label="Example icon button with a home icon">
+                <mat-icon>fact_check</mat-icon>
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            </ul>
+
+
+            <li class="nav-item">
+                <a mat-fab color="primary" href="/" aria-label="Example icon button with a home icon">
+                    <mat-icon>account_box</mat-icon>
+                </a>
+            </li>
+            <li class="nav-item ml-3">
+                <a mat-fab color="primary" (click)="OturumuKapat()" aria-label="Example icon button with a home icon">
+                    <mat-icon>exit_to_app</mat-icon>
+                </a>
+            </li>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-ml-6">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="example-button-container mb-3">
+                            <a mat-fab color="warn" aria-label="Example icon button with a home icon">
+                                <mat-icon>A</mat-icon>
+                            </a>
+                        </div>
+                        <table class="table table-hover table-dark">
+                            <thead>
+                                <th>Öğrenci Adı</th>
+                                <th>Öğrenci No</th>
+                                <th>Grubu</th>
+                                <th>Durumu</th>
+                                <th></th>
+                                <th>Düzenle</th>
+                                <th>Sil</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let kayit of kayitlar">
+                                    <td>{{kayit.ogAd}}</td>
+                                    <td>{{kayit.ogNo}}</td>
+                                    <td>{{kayit.ogGrubu}}</td>
+
+
+                                    <td>
+
+                                        <span class="material-icons" *ngIf="kayit.islem">thumb_down</span>
+                                        <span class="material-icons" *ngIf="!kayit.islem">thumb_up</span>
+                                    </td>
+
+                                    <td>
+
+                                        <button class="btn btn-outline-success btn-sm" (click)="TamamlaIptal(kayit,true)" *ngIf="!kayit.islem">Tamamlandı Yap</button>
+                                        <button class="btn btn-outline-danger btn-sm" (click)="TamamlaIptal(kayit,false)" *ngIf="kayit.islem">Tamamlandı İptal Et</button>
+
+                                    </td>
+                                    <td><button mat-mini-fab color="accent" (click)="KayitDuzenle(kayit)" aria-label="Example icon button with a delete icon">
+                                        <mat-icon>article</mat-icon>
+                                      </button></td>
+                                    <div class="example-button-container">
+                                        <button mat-mini-fab color="warn" (click)="KayitSil(kayit)" aria-label="Example icon button with a delete icon">
+                                          <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4>Düzenle</h4>
+                        <hr>
+                        <form #frm="ngForm" (submit)="Kaydet()">
+                            <div class="form-group">
+                                <label>Öğrenci Adı</label>
+                                <input type="text" class="form-control" name="ÜrünAdı" [(ngModel)]="secKayit.ogAd" required>
+                                <input type="hidden" class="form-control" name="key" [(ngModel)]="secKayit.key">
+                            </div>
+                            <div class="form-group">
+                                <label>Öğrenci No</label>
+                                <input type="text" class="form-control" name="Fiyat" [(ngModel)]="secKayit.ogNo" required #urunFiyati Sadecesayi>
+                            </div>
+                            <div class="form-group">
+                                <label>Grubu</label>
+                                <input type="text" class="form-control" name="Kategori" [(ngModel)]="secKayit.ogGrubu" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Kaydet" class="btn btn-success" [disabled]="frm.invalid">
+
+                            </div>
+
+
+                        </form>
+
+                        <div class="example-button-container">
+                            <a mat-fab color="warn" (click)="Vazgec()" aria-label="Example icon button with a home icon">
+                                <mat-icon>pan_tool</mat-icon>
+                            </a>
+                        </div>
+
+                        <div [ngClass]="sonuc.islem ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc.mesaj?.length>0">
+                            {{sonuc.mesaj}}</div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-ml-6">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="example-button-container mb-3">
+                            <a mat-fab color="warn" aria-label="Example icon button with a home icon">
+                                <mat-icon>B</mat-icon>
+                            </a>
+                        </div>
+                        <table class="table table-hover table-dark">
+                            <thead>
+                                <th>Öğrenci Adı</th>
+                                <th>Öğrenci No</th>
+                                <th>Grubu</th>
+                                <th>Durumu</th>
+                                <th></th>
+
+                                <th>Düzenle</th>
+                                <th>Sil</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let kayitt of masa2">
+                                    <td>{{kayitt.ogAdd}}</td>
+                                    <td>{{kayitt.ogNoo}}</td>
+                                    <td>{{kayitt.ogGrubuu}}</td>
+
+                                    <td>
+                                        <span class="material-icons" *ngIf="kayitt.islemm">thumb_down</span>
+                                        <span class="material-icons" *ngIf="!kayitt.islemm">thumb_up</span>
+                                    </td>
+
+                                    <td>
+
+                                        <button class="btn btn-outline-success btn-sm" (click)="TamamlaIptall(kayitt,true)" *ngIf="!kayitt.islemm">Tamamlandı Yap</button>
+                                        <button class="btn btn-outline-danger btn-sm" (click)="TamamlaIptall(kayitt,false)" *ngIf="kayitt.islemm">Tamamlandı İptal Et</button>
+
+                                    </td>
+                                    <td><button mat-mini-fab color="accent" (click)="KayitDuzenlee(kayitt)" aria-label="Example icon button with a delete icon">
+                                        <mat-icon>article</mat-icon>
+                                      </button></td>
+                                    <div class="example-button-container">
+                                        <button mat-mini-fab color="warn" (click)="KayitSill(kayitt)" aria-label="Example icon button with a delete icon">
+                                          <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4>Düzenle</h4>
+                        <hr>
+                        <form #frm="ngForm" (submit)="Kaydett()">
+                            <div class="form-group">
+                                <label>Öğrenci Adı</label>
+                                <input type="text" class="form-control" name="ÜrünAdı" [(ngModel)]="secKayitt.ogAdd" required>
+                                <input type="hidden" class="form-control" name="key" [(ngModel)]="secKayitt.key">
+                            </div>
+                            <div class="form-group">
+                                <label>Öğrenci No</label>
+                                <input type="text" class="form-control" name="Fiyat" [(ngModel)]="secKayitt.ogNoo" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Grubu</label>
+                                <input type="text" class="form-control" name="Kategori" [(ngModel)]="secKayitt.ogGrubuu" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Kaydet" class="btn btn-success" [disabled]="frm.invalid">
+
+                            </div>
+
+
+                        </form>
+                        <div class="example-button-container">
+                            <a mat-fab color="warn" (click)="Vazgec()" aria-label="Example icon button with a home icon">
+                                <mat-icon>pan_tool</mat-icon>
+                            </a>
+                        </div>
+
+
+
+
+                        <div [ngClass]="sonuc.islemm ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc.mesajj?.length>0">
+                            {{sonuc.mesajj}}</div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-ml-6">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-8">
+
+                        <div class="example-button-container mb-3">
+                            <a mat-fab color="warn" aria-label="Example icon button with a home icon">
+                                <mat-icon>C</mat-icon>
+                            </a>
+                        </div>
+                        <table class="table table-dark table">
+                            <thead>
+                                <th>Öğrenci Adı</th>
+                                <th>Öğrenci No</th>
+                                <th>Grubu</th>
+                                <th>Durumu</th>
+                                <th></th>
+                                <th>Düzenle</th>
+                                <th>Sil</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let kayit3 of csinif">
+                                    <td>{{kayit3.ogAd3}}</td>
+                                    <td>{{kayit3.ogNo3}}</td>
+                                    <td>{{kayit3.ogGrubu3}}</td>
+
+
+                                    <td>
+                                        <span class="material-icons" *ngIf="kayit3.islem3">thumb_down</span>
+                                        <span class="material-icons" *ngIf="!kayit3.islem3">thumb_up</span>
+                                    </td>
+
+                                    <td>
+
+                                        <button class="btn btn-outline-success btn-sm" (click)="TamamlaIptal3(kayit3,true)" *ngIf="!kayit3.islem3">Tamamlandı Yap</button>
+                                        <button class="btn btn-outline-danger btn-sm" (click)="TamamlaIptal3(kayit3,false)" *ngIf="kayit3.islem3">Tamamlandı İptal Et</button>
+
+                                    </td>
+
+                                    <td><button mat-mini-fab color="accent" (click)="KayitDuzenle3(kayit3)" aria-label="Example icon button with a delete icon">
+                                        <mat-icon>article</mat-icon>
+                                      </button></td>
+                                    <div class="example-button-container">
+                                        <button mat-mini-fab color="warn" (click)="KayitSil3(kayit3)" aria-label="Example icon button with a delete icon">
+                                          <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4>Düzenle</h4>
+                        <hr>
+                        <form #frm="ngForm" (submit)="Kaydet3()">
+                            <div class="form-group">
+                                <label>Öğrenci Adı</label>
+                                <input type="text" class="form-control" name="ÜrünAdı" [(ngModel)]="secKayit3.ogAd3" required>
+                                <input type="hidden" class="form-control" name="key" [(ngModel)]="secKayit3.key">
+                            </div>
+                            <div class="form-group">
+                                <label>Öğrenci No</label>
+                                <input type="text" class="form-control" name="Fiyat" [(ngModel)]="secKayit3.ogNo3" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Grubu</label>
+                                <input type="text" class="form-control" name="Kategori" [(ngModel)]="secKayit3.ogGrubu3" required>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="Kaydet" class="btn btn-success" [disabled]="frm.invalid">
+
+                            </div>
+
+                        </form>
+                        <div class="example-button-container">
+                            <a mat-fab color="warn" (click)="Vazgec3()" aria-label="Example icon button with a home icon">
+                                <mat-icon>pan_tool</mat-icon>
+                            </a>
+                        </div>
+
+                        <div [ngClass]="sonuc.islem3 ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc.mesaj3?.length>0">
+                            {{sonuc.mesaj3}}</div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,378 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="example-button-container">
+            <a mat-fab color="warn" href="/" aria-label="Example icon button with a home icon">
+                <mat-icon>home</mat-icon>
+            </a>
+        </div>
+        <div class="ml-3">
+            <a mat-fab color="primary" href="/kayitlar" aria-label="Example icon button with a home icon">
+                <mat-icon>fact_check</mat-icon>
+            </a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            </ul>
+
+
+            <li class="nav-item">
+                <a mat-fab color="primary" href="/" aria-label="Example icon button with a home icon">
+                    <mat-icon>account_box</mat-icon>
+                </a>
+            </li>
+            <li class="nav-item ml-3">
+                <a mat-fab color="primary" (click)="OturumuKapat()" aria-label="Example icon button with a home icon">
+                    <mat-icon>exit_to_app</mat-icon>
+                </a>
+            </li>
+        </div>
+    </div>
+</nav>
+
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div class="example-button-container ml-4">
+                    <a mat-fab color="warn" aria-label="Example icon button with a home icon">
+                        <mat-icon>A</mat-icon>
+                    </a>
+                </div>
+      </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="container mt-5">
+                    <div class="row alert alert-succes" *ngIf="detay">
+                        <div class="col-md-6">
+                            <h5>Ürün Adı</h5>
+                            <p>{{secKayit.ogAd}}</p>
+                            <h5>Ürün Fiyatı</h5>
+                            <p>{{secKayit.ogNo}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Kayıt Tarihi</h5>
+                            <p>{{secKayit.kayTarih | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+                            <h5>Düzenleme Tarihi</h5>
+                            <p>{{secKayit.duzTarih | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+
+                            <h5>Durumu</h5>
+                            <p><span class="badge badge-pill bg-success text-white" *ngIf="secKayit.islem">Tamamlandı</span>
+                                <span class="badge badge-pill bg-danger text-white" *ngIf="!secKayit.islem">Bekliyor</span>
+                            </p>
+                            <button class="btn btn-outline-danger btn-sm" (click)="detay=false;">Kapat</button>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>SINIF</h4>
+                            <table class="table">
+                                <thead>
+                                    <td>Öğrenci</td>
+                                    <td>Durumu</td>
+
+                                    <td>Detay</td>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let kayit  of kayitlar">
+                                        <td>{{kayit.ogAd}}</td>
+
+
+                                        <td>
+                                            <span class="material-icons" *ngIf="kayit.islem3">thumb_down</span>
+                                            <span class="material-icons" *ngIf="!kayit.islem3">thumb_up</span>
+                                        </td>
+
+
+                                        <td>
+                                            <div class="example-button-container">
+                                                <a mat-fab color="warn" (click)="KayitSec(kayit);detay=true;" aria-label="Example icon button with a home icon">
+                                                    <mat-icon>list</mat-icon>
+                                                </a>
+                                            </div>
+                                        </td>
+
+
+
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container mt-5">
+                    <div class="row alert alert-success" *ngIf="detayy">
+                        <div class="col-md-6">
+                            <h5>Ürün Adı</h5>
+
+                            <p>{{secKayitt.ogAdd}}</p>
+                            <h5>Ürün Fiyatı</h5>
+
+                            <p>{{secKayitt.ogNoo}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Kayıt Tarihi</h5>
+                            <p>{{secKayitt.kayTarihh | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+                            <h5>Düzenleme Tarihi</h5>
+                            <p>{{secKayitt.duzTarihh | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+
+                            <h5>Durumu</h5>
+                            <p><span class="badge badge-pill bg-success text-white" *ngIf="secKayitt.islemm">Tamamlandı</span>
+                                <span class="badge badge-pill bg-danger text-white" *ngIf="!secKayitt.islemm">Bekliyor</span>
+                            </p>
+                            <button class="btn btn-outline-danger btn-sm" (click)="detayy=false;">Kapat</button>
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+
+
+
+
+
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="example-button-container ml-4">
+                        <a mat-fab color="warn" href="/" aria-label="Example icon button with a home icon">
+                            <mat-icon>B</mat-icon>
+                        </a>
+                    </div>
+      </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="container mt-5">
+                        <div class="row alert alert-succes" *ngIf="detayy">
+                            <div class="col-md-6">
+                                <h5>Ürün Adı</h5>
+                                <p>{{secKayitt.ogAdd}}</p>
+                                <h5>Ürün Fiyatı</h5>
+                                <p>{{secKayitt.ogNoo}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Kayıt Tarihi</h5>
+                                <p>{{secKayitt.kayTarihh | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+                                <h5>Düzenleme Tarihi</h5>
+                                <p>{{secKayitt.duzTarihh | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+
+                                <h5>Durumu</h5>
+                                <p><span class="badge badge-pill bg-success text-white" *ngIf="secKayitt.islemm">Tamamlandı</span>
+                                    <span class="badge badge-pill bg-danger text-white" *ngIf="!secKayitt.islemm">Bekliyor</span>
+                                </p>
+                                <button class="btn btn-outline-danger btn-sm" (click)="detayy=false;">Kapat</button>
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>SINIF</h4>
+                                <table class="table">
+                                    <thead>
+                                        <td>Öğrenci</td>
+                                        <td>Durumu</td>
+
+                                        <td>Detay</td>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let kayitt  of masa2">
+                                            <td>{{kayitt.ogAdd}}</td>
+
+
+                                            <td>
+                                                <span class="material-icons" *ngIf="kayitt.islemm">thumb_down</span>
+                                                <span class="material-icons" *ngIf="!kayitt.islemm">thumb_up</span>
+                                            </td>
+
+
+                                            <td>
+                                                <div class="example-button-container">
+                                                    <a mat-fab color="warn" (click)="KayitSecc(kayitt);detayy=true;" aria-label="Example icon button with a home icon">
+                                                        <mat-icon>list</mat-icon>
+                                                    </a>
+                                                </div>
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="container mt-5">
+                        <div class="row alert alert-success" *ngIf="detayy">
+                            <div class="col-md-6">
+                                <h5>Öğrenci Adı</h5>
+
+                                <p>{{secKayitt.ogAdd}}</p>
+                                <h5>Öğrenci No</h5>
+
+                                <p>{{secKayitt.ogNoo}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Kayıt Tarihi</h5>
+                                <p>{{secKayitt.kayTarihh | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+                                <h5>Düzenleme Tarihi</h5>
+                                <p>{{secKayitt.duzTarihh | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+
+                                <h5>Durumu</h5>
+                                <p><span class="badge badge-pill bg-success text-white" *ngIf="secKayitt.islemm">Tamamlandı</span>
+                                    <span class="badge badge-pill bg-danger text-white" *ngIf="!secKayitt.islemm">Bekliyor</span>
+                                </p>
+                                <button class="btn btn-outline-danger btn-sm" (click)="detayy=false;">Kapat</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                
+                    <div class="example-button-container ml-4">
+                        <a mat-fab color="warn" href="/" aria-label="Example icon button with a home icon">
+                             <mat-icon>C</mat-icon>
+                        </a>
+                </div>
+            
+  </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="container mt-5">
+                    <div class="row alert alert-succes" *ngIf="detay3">
+                        <div class="col-md-6">
+                            <h5>Öğrenci Adı</h5>
+                            <p>{{secKayit3.ogAd3}}</p>
+                            <h5>Öğrenci No</h5>
+                            <p>{{secKayit3.ogNo3}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Kayıt Tarihi</h5>
+                            <p>{{secKayit3.kayTarih3 | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+                            <h5>Düzenleme Tarihi</h5>
+                            <p>{{secKayit3.duzTarih3 | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+
+                            <h5>Durumu</h5>
+                            <p><span class="badge badge-pill bg-success text-white" *ngIf="secKayit3.islem3">Tamamlandı</span>
+                                <span class="badge badge-pill bg-danger text-white" *ngIf="!secKayit3.islem3">Bekliyor</span>
+                            </p>
+                            <button class="btn btn-outline-danger btn-sm" (click)="detay3=false;">Kapat</button>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>SINIF</h4>
+                            <table class="table">
+                                <thead>
+                                    <td>Öğrenci</td>
+                                    <td>Durumu</td>
+
+                                    <td>Detay</td>
+
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let kayit3  of csinif">
+                                        <td>{{kayit3.ogAd3}}</td>
+
+
+                                        <td>
+                                            <span class="material-icons" *ngIf="kayit3.islem3">thumb_down</span>
+                                            <span class="material-icons" *ngIf="!kayit3.islem3">thumb_up</span>
+                                        </td>
+
+
+                                        <td>
+                                            <div class="example-button-container">
+                                                <a mat-fab color="warn" (click)="KayitSec3(kayit3);detay3=true;" aria-label="Example icon button with a home icon">
+                                                    <mat-icon>list</mat-icon>
+                                                </a>
+                                            </div>
+                                        </td>
+
+
+                                    </tr>
+                                </tbody>
+
+
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container mt-5">
+                    <div class="row alert alert-success" *ngIf="detay3">
+                        <div class="col-md-6">
+                            <h5>Öğrenci Adı</h5>
+
+                            <p>{{secKayit3.ogAd3}}</p>
+                            <h5>Öğrenci No</h5>
+
+                            <p>{{secKayit3.ogNo3}}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Kayıt Tarihi</h5>
+                            <p>{{secKayit3.kayTarih3 | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+                            <h5>Düzenleme Tarihi</h5>
+                            <p>{{secKayit3.duzTarih3 | date:'dd.MM.yyyy HH:mm:sss'}}</p>
+
+                            <h5>Durumu</h5>
+                            <p><span class="badge badge-pill bg-success text-white" *ngIf="secKayit3.islem3">Tamamlandı</span>
+                                <span class="badge badge-pill bg-danger text-white" *ngIf="!secKayit3.islem3">Bekliyor</span>
+                            </p>
+                            <button class="btn btn-outline-danger btn-sm" (click)="detay3=false;">Kapat</button>
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
